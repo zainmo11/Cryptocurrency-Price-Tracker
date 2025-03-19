@@ -288,120 +288,133 @@ function App() {
 
         <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {displayedCryptos.map((crypto) => (
-            <div
-              key={crypto.id}
-              className={`bg-gray-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl border transition-all duration-300 hover:transform hover:scale-[1.02] ${
-                selectedCrypto === crypto.id
-                  ? 'border-green-500'
-                  : 'border-gray-700 hover:border-gray-600'
-              }`}
-            >
-              <div className="flex justify-between items-start mb-4">
-                <div className="flex items-start gap-2">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      togglePreferred(crypto.id);
-                    }}
-                    className="mt-1"
-                  >
-                    {preferredList.includes(crypto.id) ? (
-                      <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                    ) : (
-                      <StarOff className="w-4 h-4 text-gray-400" />
-                    )}
-                  </button>
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-700 rounded-full overflow-hidden">
-                      <img src={crypto.image} alt={crypto.name} className="w-full h-full object-cover" />
-                    </div>
-                  <div onClick={() => setSelectedCrypto(crypto.id === selectedCrypto ? null : crypto.id)}>
-                    <h2 className="text-lg sm:text-xl font-semibold">{crypto.name}</h2>
-                    <p className="text-sm text-gray-400 uppercase">{crypto.symbol}</p>
-                  </div>
-                </div>
-                <span
-                  className={`px-2 py-1 rounded text-xs sm:text-sm ${
-                    crypto.price_change_percentage_24h >= 0
-                      ? 'bg-green-500/20 text-green-400'
-                      : 'bg-red-500/20 text-red-400'
+              <div
+                  key={crypto.id}
+                  className={`bg-gray-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl border transition-all duration-300 hover:transform hover:scale-[1.02] ${
+                      selectedCrypto === crypto.id
+                          ? 'border-green-500'
+                          : 'border-gray-700 hover:border-gray-600'
                   }`}
-                >
+              >
+                <div className="flex justify-between items-start mb-4">
+                  <div className="flex items-start gap-2">
+                    <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          togglePreferred(crypto.id);
+                        }}
+                        className="mt-1"
+                    >
+                      {preferredList.includes(crypto.id) ? (
+                          <Star className="w-4 h-4 text-yellow-400 fill-yellow-400"/>
+                      ) : (
+                          <StarOff className="w-4 h-4 text-gray-400"/>
+                      )}
+                    </button>
+                    <div onClick={() => setSelectedCrypto(crypto.id === selectedCrypto ? null : crypto.id)}
+                         className="cursor-pointer w-10 h-10 sm:w-12 sm:h-12 bg-gray-700 rounded-full overflow-hidden">
+                      <img src={crypto.image} alt={crypto.name} className="w-full h-full object-cover"/>
+                    </div>
+                    <div onClick={() => setSelectedCrypto(crypto.id === selectedCrypto ? null : crypto.id)}>
+                      <h2 className="text-lg sm:text-xl font-semibold cursor-pointer">{crypto.name}</h2>
+                      <p className="text-sm text-gray-400 uppercase cursor-pointer">{crypto.symbol}</p>
+                    </div>
+                  </div>
+                  <span
+                      className={`px-2 py-1 rounded text-xs sm:text-sm ${
+                          crypto.price_change_percentage_24h >= 0
+                              ? 'bg-green-500/20 text-green-400'
+                              : 'bg-red-500/20 text-red-400'
+                      }`}
+                  >
                   {crypto.price_change_percentage_24h >= 0 ? (
-                    <ChevronUp className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1" />
+                      <ChevronUp className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1"/>
                   ) : (
-                    <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1" />
+                      <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1"/>
                   )}
-                  {Math.abs(crypto.price_change_percentage_24h).toFixed(2)}%
+                    {Math.abs(crypto.price_change_percentage_24h).toFixed(2)}%
                 </span>
-              </div>
-              <p className="text-xl sm:text-2xl font-bold mb-4">
-                {formatPrice(crypto.current_price)}
-              </p>
-
-              {selectedCrypto === crypto.id && crypto.sparkline_in_7d?.price && (
-                <div className="mb-4 h-32 sm:h-40">
-                  <Line data={getChartData(crypto)!} options={chartOptions} />
                 </div>
-              )}
+                <p className="text-xl sm:text-2xl font-bold mb-4">
+                  {formatPrice(crypto.current_price)}
+                </p>
 
-              <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm mb-4">
-                <div className="text-gray-400">24h High</div>
-                <div className="text-right font-medium">{formatPrice(crypto.high_24h)}</div>
-                <div className="text-gray-400">24h Low</div>
-                <div className="text-right font-medium">{formatPrice(crypto.low_24h)}</div>
-                <div className="text-gray-400">Market Cap</div>
-                <div className="text-right font-medium">{formatNumber(crypto.market_cap)}</div>
-                <div className="text-gray-400">Volume (24h)</div>
-                <div className="text-right font-medium">{formatNumber(crypto.total_volume)}</div>
-              </div>
+                {selectedCrypto === crypto.id && crypto.sparkline_in_7d?.price && (
+                    <div className="mb-4 h-32 sm:h-40">
+                      <Line data={getChartData(crypto)!} options={chartOptions}/>
+                    </div>
+                )}
 
-              {selectedCrypto === crypto.id && (
-                  <div className="border-t border-gray-700 pt-4 mt-4">
-                    <div className="flex flex-col gap-2 w-full">
-                      <div className="flex gap-2 w-full">
-                        <input
-                            type="number"
-                            value={newAlertPrice}
-                            onChange={(e) => setNewAlertPrice(e.target.value)}
-                            placeholder="Set price alert..."
-                            className="bg-gray-700 rounded px-2 py-2 text-sm flex-1"
-                        />
-                        <select
-                            value={newAlertType}
-                            onChange={(e) => setNewAlertType(e.target.value as 'above' | 'below')}
-                            className="bg-gray-700 rounded px-2 py-2 text-sm"
+                <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm mb-4">
+                  <div className="text-gray-400">24h High</div>
+                  <div className="text-right font-medium">{formatPrice(crypto.high_24h)}</div>
+                  <div className="text-gray-400">24h Low</div>
+                  <div className="text-right font-medium">{formatPrice(crypto.low_24h)}</div>
+                  <div className="text-gray-400">Market Cap</div>
+                  <div className="text-right font-medium">{formatNumber(crypto.market_cap)}</div>
+                  <div className="text-gray-400">Volume (24h)</div>
+                  <div className="text-right font-medium">{formatNumber(crypto.total_volume)}</div>
+                </div>
+                <div className="flex justify-end mt-3">
+                  <a
+                      href={`https://www.coingecko.com/en/coins/${crypto.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 text-xs sm:text-sm md:text-base hover:underline"
+                  >
+                    Learn more
+                  </a>
+                </div>
+                {selectedCrypto === crypto.id && (
+                    <div className="border-t border-gray-700 pt-4 mt-4">
+                      <div className="flex flex-col gap-2 w-full">
+                        <div className="flex gap-2 w-full">
+                          <input
+                              type="number"
+                              value={newAlertPrice}
+                              onChange={(e) => setNewAlertPrice(e.target.value)}
+                              placeholder="Set price alert..."
+                              className="bg-gray-700 rounded px-2 py-2 text-sm flex-1"
+                          />
+                          <select
+                              value={newAlertType}
+                              onChange={(e) => setNewAlertType(e.target.value as 'above' | 'below')}
+                              className="bg-gray-700 rounded px-2 py-2 text-sm"
+                          >
+                            <option value="above">Above</option>
+                            <option value="below">Below</option>
+                          </select>
+                        </div>
+
+                        <button
+                            onClick={() => addPriceAlert(crypto.id)}
+                            className="bg-green-500 hover:bg-green-600 rounded px-3 py-2 text-sm w-full"
                         >
-                          <option value="above">Above</option>
-                          <option value="below">Below</option>
-                        </select>
+                          Set Alert
+                        </button>
                       </div>
 
-                      <button
-                          onClick={() => addPriceAlert(crypto.id)}
-                          className="bg-green-500 hover:bg-green-600 rounded px-3 py-2 text-sm w-full"
-                      >
-                        Set Alert
-                      </button>
-                    </div>
-
-                    {priceAlerts.filter(alert => alert.cryptoId === crypto.id).map(alert => (
-                        <div key={alert.id}
-                             className="flex items-center justify-between text-xs sm:text-sm bg-gray-700/50 rounded px-3 py-2 mb-2">
+                      {priceAlerts.filter(alert => alert.cryptoId === crypto.id).map(alert => (
+                          <div key={alert.id}
+                               className="flex items-center justify-between text-xs sm:text-sm bg-gray-700/50 rounded px-3 py-2 mb-2">
                       <span>
                         {alert.type === 'above' ? '↑' : '↓'} {formatPrice(alert.price)}
                       </span>
-                          <button
-                              onClick={() => setPriceAlerts(prev => prev.filter(a => a.id !== alert.id))}
-                              className="text-red-400 hover:text-red-300"
-                          >
-                            <BellOff className="w-4 h-4"/>
-                          </button>
-                        </div>
-                    ))}
-                  </div>
-              )}
-            </div>
+                            <button
+                                onClick={() => setPriceAlerts(prev => prev.filter(a => a.id !== alert.id))}
+                                className="text-red-400 hover:text-red-300"
+                            >
+                              <BellOff className="w-4 h-4"/>
+                            </button>
+                          </div>
+                      ))}
+                    </div>
+                )}
+
+
+              </div>
           ))}
+
         </div>
 
         {filteredCryptoData.length === 0 && (
