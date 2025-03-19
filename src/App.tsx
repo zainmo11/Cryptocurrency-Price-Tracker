@@ -304,6 +304,8 @@ function App() {
                           togglePreferred(crypto.id);
                         }}
                         className="mt-1"
+                        name={"favorite"}
+                        title={ (preferredList.includes(crypto.id))? "Remove from favorites" : "Add to favorites"}
                     >
                       {preferredList.includes(crypto.id) ? (
                           <Star className="w-4 h-4 text-yellow-400 fill-yellow-400"/>
@@ -369,6 +371,7 @@ function App() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-gray-400 text-xs sm:text-sm md:text-base hover:underline"
+                      title={`Learn more about the ${crypto.name} cryptocurrency.`}
                   >
                     Learn more
                   </a>
