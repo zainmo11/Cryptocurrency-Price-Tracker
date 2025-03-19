@@ -318,7 +318,7 @@ function App() {
                       <img
                           src={crypto.image}
                           alt={crypto.name}
-                          className="w-3/4 h-3/4 sm:w-full sm:h-full object-contain spin-coin"
+                          className="w-3/4 h-3/4 sm:w-full sm:h-full object-contain spins-coin"
                       />
                     </div>
 
