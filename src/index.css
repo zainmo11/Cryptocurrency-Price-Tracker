@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@keyframes spin {
+@keyframes spins {
     from {
         transform: rotateY(0deg);
     }
@@ -10,6 +10,6 @@
         transform: rotateY(360deg);
     }
 }
-.group:hover .spin-coin {
+.group:hover .spins-coin {
     animation: spin 0.8s linear;
 }
