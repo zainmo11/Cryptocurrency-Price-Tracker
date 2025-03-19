@@ -28,6 +28,7 @@ ChartJS.register(
 
 interface CryptoData {
   id: string;
+  image: string
   symbol: string;
   name: string;
   current_price: number;
@@ -310,6 +311,9 @@ function App() {
                       <StarOff className="w-4 h-4 text-gray-400" />
                     )}
                   </button>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-700 rounded-full overflow-hidden">
+                      <img src={crypto.image} alt={crypto.name} className="w-full h-full object-cover" />
+                    </div>
                   <div onClick={() => setSelectedCrypto(crypto.id === selectedCrypto ? null : crypto.id)}>
                     <h2 className="text-lg sm:text-xl font-semibold">{crypto.name}</h2>
                     <p className="text-sm text-gray-400 uppercase">{crypto.symbol}</p>
@@ -371,7 +375,7 @@ function App() {
                           <option value="below">Below</option>
                         </select>
                       </div>
-                      
+
                       <button
                           onClick={() => addPriceAlert(crypto.id)}
                           className="bg-green-500 hover:bg-green-600 rounded px-3 py-2 text-sm w-full"
