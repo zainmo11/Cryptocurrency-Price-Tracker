@@ -311,12 +311,20 @@ function App() {
                           <StarOff className="w-4 h-4 text-gray-400"/>
                       )}
                     </button>
-                    <div onClick={() => setSelectedCrypto(crypto.id === selectedCrypto ? null : crypto.id)}
-                         className="cursor-pointer w-10 h-10 sm:w-12 sm:h-12 bg-gray-700 rounded-full overflow-hidden">
-                      <img src={crypto.image} alt={crypto.name} className="w-full h-full object-cover"/>
+                    <div
+                        onClick={() => setSelectedCrypto(crypto.id === selectedCrypto ? null : crypto.id)}
+                        className="cursor-pointer w-10 h-10 sm:w-12 sm:h-12 bg-gray-700 rounded-full overflow-hidden flex items-center justify-center group"
+                    >
+                      <img
+                          src={crypto.image}
+                          alt={crypto.name}
+                          className="w-3/4 h-3/4 sm:w-full sm:h-full object-contain spin-coin"
+                      />
                     </div>
+
+
                     <div onClick={() => setSelectedCrypto(crypto.id === selectedCrypto ? null : crypto.id)}>
-                      <h2 className="text-lg sm:text-xl font-semibold cursor-pointer">{crypto.name}</h2>
+                      <h2 className="text-lg sm:text-xl font-semibold cursor-pointer ">{crypto.name}</h2>
                       <p className="text-sm text-gray-400 uppercase cursor-pointer">{crypto.symbol}</p>
                     </div>
                   </div>
