@@ -66,14 +66,14 @@ function App() {
     return saved ? JSON.parse(saved) : ['bitcoin', 'ethereum'];
   });
   const [showPreferredOnly, setShowPreferredOnly] = useState(false);
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker
-          .register("/sw.js")
-          .then((registration) => console.log("Service Worker registered", registration))
-          .catch((error) => console.log("Service Worker registration failed", error));
-    });
-  }
+  // if ("serviceWorker" in navigator) {
+  //   window.addEventListener("load", () => {
+  //     navigator.serviceWorker
+  //         .register("/sw.js")
+  //         .then((registration) => console.log("Service Worker registered", registration))
+  //         .catch((error) => console.log("Service Worker registration failed", error));
+  //   });
+  // }
 
   const fetchCryptoData = async () => {
     setIsLoading(true);
